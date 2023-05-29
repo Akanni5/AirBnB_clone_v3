@@ -15,10 +15,7 @@ def cities_get(state_id):
     """
     state = storage.get(State, state_id)
     if state:
-        if storage_t == 'db':
-            cities = [city.to_dict() for city in state.cities]
-        else:
-            cities = [city.to_dict() for city in state.cities()]
+        cities = [city.to_dict() for city in state.cities]
         return jsonify(cities)
     else:
         abort(404)
@@ -56,6 +53,9 @@ def city_post(state_id):
     """
     route handler for creating a new city
     """
+    state = storage.get(State, state_id)
+    if not state:
+        abort(404)
     if not request.is_json:
         return "Not a JSON", 400
     new_city = request.get_json().get('name')
