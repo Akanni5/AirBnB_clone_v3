@@ -50,7 +50,7 @@ def user_post():
     user.email = email
     user.password = password
     user.save()
-    return jsonify({}), 201
+    return jsonify(user), 201
 
 
 @app_views.route('/users/<user_id>', methods=['PUT'])
