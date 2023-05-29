@@ -77,7 +77,7 @@ def city_put(city_id):
     city = storage.get(City, city_id)
 
     if city is None:
-        return abort(404)
+        abort(404)
 
     for key, value in data.items():
         if key in ('id', 'state_id', 'created_at', 'updated_at'):
