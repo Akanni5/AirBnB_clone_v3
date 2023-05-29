@@ -3,12 +3,19 @@
 
 from models import storage
 from flask import Flask, jsonify
+from flask_cors import CORS
 from api.v1.views import app_views
 import os
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.register_blueprint(app_views)
+resources = {
+    r"/*": {
+        "origins": "0.0.0.0"
+    }
+}
+CORS(app, resources=resources)
 
 
 @app.teardown_appcontext
