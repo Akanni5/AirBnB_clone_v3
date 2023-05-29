@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""""""
+"""index route handlers"""
 
 from flask import jsonify
 from api.v1.views import app_views
@@ -14,6 +14,7 @@ from models import storage
 
 @app_views.route('/status')
 def index():
+    """return OK as the status of the application"""
     data = {
         "status": "OK"
     }
@@ -22,12 +23,13 @@ def index():
 
 @app_views.route('/stats')
 def stats():
-    users = len(storage.all(User).values())
-    amenities = len(storage.all(Amenity).values())
-    states = len(storage.all(State).values())
-    places = len(storage.all(Place).values())
-    reviews = len(storage.all(Review).values())
-    cities = len(storage.all(City).values())
+    """returns the storage objects counts"""
+    users = storage.count(User)
+    amenities = storage.count(Amenity)
+    states = storage.count(State)
+    places = storage.count(Place)
+    reviews = storage.count(Review)
+    cities = storage.count(City)
 
     data = {
         "amenities": amenities,
