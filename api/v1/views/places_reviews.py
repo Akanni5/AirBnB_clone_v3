@@ -55,6 +55,7 @@ def review_post(place_id):
         return "Missing user_id", 400
     if not text:
         return "Missing text", 400
+    data["place_id"] = place_id
     review = Review(**data)
     review.save()
     return jsonify(review.to_dict()), 201
