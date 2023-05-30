@@ -52,7 +52,7 @@ def review_post(place_id):
     user_id = data.get('user_id')
     text = data.get('text')
     if not user_id:
-        return "Missing user_id", 400
+        abort(404)
     if not text:
         return "Missing text", 400
     data["place_id"] = place_id
