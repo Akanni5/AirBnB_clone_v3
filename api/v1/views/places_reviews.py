@@ -2,17 +2,15 @@
 """route handlers for Review object"""
 from api.v1.views import app_views
 from flask import abort, request, jsonify
-from models import storage, storage_t
+from models import storage
 from models.review import Review
 from models.place import Place
 
 
 @app_views.route('/places/<place_id>/reviews')
 def reviews_get(place_id):
-    """
-    read all review object
-    """
-    place: Place = storage.get(Place, place_id)
+    """read all review object"""
+    place = storage.get(Place, place_id)
     if not place:
         abort(404)
 
@@ -24,9 +22,7 @@ def reviews_get(place_id):
 
 @app_views.route('/reviews/<review_id>')
 def review_get(review_id):
-    """
-    for reading a review
-    """
+    """for reading a review"""
     review = storage.get(Review, review_id)
     if not review:
         abort(404)
@@ -35,9 +31,7 @@ def review_get(review_id):
 
 @app_views.route('/reviews/<review_id>', methods=['DELETE'])
 def review_delete(review_id):
-    """
-    for deleting a review
-    """
+    """for deleting a review"""
     review = storage.get(Review, review_id)
     if not review:
         abort(404)
@@ -48,9 +42,7 @@ def review_delete(review_id):
 
 @app_views.route('/places/<place_id>/reviews', methods=["POST"])
 def review_post(place_id):
-    """
-    for creating a review
-    """
+    """for creating a review"""
     place = storage.get(Place, place_id)
     if not place:
         abort(404)
