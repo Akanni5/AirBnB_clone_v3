@@ -5,6 +5,7 @@ from flask import abort, request, jsonify
 from models import storage
 from models.review import Review
 from models.place import Place
+from models.user import User
 
 
 @app_views.route('/places/<place_id>/reviews')
@@ -52,6 +53,9 @@ def review_post(place_id):
     user_id = data.get('user_id')
     text = data.get('text')
     if not user_id:
+        return "Missing user_id", 400
+    user = storage.get(User, user_id)
+    if not user:
         abort(404)
     if not text:
         return "Missing text", 400
