@@ -47,6 +47,8 @@ def place_amenity_delete(place_id, amenity_id):
             place.amenity_ids.remove(amenity.id)
     if not is_linked:
         abort(404)
+    storage.delete(amenity)
+    storage.save()
     return jsonify({})
 
 
